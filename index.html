@@ -214,6 +214,8 @@ header {
         border-right: none;
         border-bottom: 1px solid #eee;
         padding: 12px;
+        overflow-x: auto;
+        white-space: nowrap;
     }
 
     .sidebar h3 {
@@ -399,7 +401,8 @@ Save Product
 
 <script>
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAYBy46FwQm_znbR7wzPb9rtzj6phhQXDJPTNX3dCDDc0kysevoo9ksiQEgjBqpi2Qjw/exec";
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbzAYBy46FwQm_znbR7wzPb9rtzj6phhQXDJPTNX3dCDDc0kysevoo9ksiQEgjBqpi2Qjw/exec";
 
 function scrollToForm() {
     document.getElementById("productForm").scrollIntoView({
@@ -412,12 +415,18 @@ async function saveProduct() {
     const button = document.getElementById("saveButton");
     const message = document.getElementById("message");
 
-    const name = document.getElementById("productName").value.trim();
-    const price = document.getElementById("price").value;
-    const stock = document.getElementById("stock").value;
+    const name =
+        document.getElementById("productName").value.trim();
+
+    const price =
+        document.getElementById("price").value;
+
+    const stock =
+        document.getElementById("stock").value;
 
     if (!name || !price || !stock) {
-        message.textContent = "Please fill in Product Name, Price and Stock.";
+        message.textContent =
+            "Please fill in Product Name, Price and Stock.";
         return;
     }
 
@@ -429,29 +438,35 @@ async function saveProduct() {
 
         price: price,
 
-        oldPrice: document.getElementById("oldPrice").value,
+        oldPrice:
+            document.getElementById("oldPrice").value,
 
-        category: document.getElementById("category").value,
+        category:
+            document.getElementById("category").value,
 
-        description: document.getElementById("description").value,
+        description:
+            document.getElementById("description").value,
 
-        image1: document.getElementById("image1").value,
+        image1:
+            document.getElementById("image1").value,
 
-        image2: document.getElementById("image2").value,
+        image2:
+            document.getElementById("image2").value,
 
         stock: stock,
 
-        status: document.getElementById("status").value,
+        status:
+            document.getElementById("status").value,
 
-        newProduct: document.getElementById("newProduct").checked,
+        newProduct:
+            document.getElementById("newProduct").checked,
 
-        sale: document.getElementById("sale").checked
-
+        sale:
+            document.getElementById("sale").checked
     };
 
     button.disabled = true;
     button.textContent = "Saving...";
-
     message.textContent = "";
 
     try {
@@ -464,11 +479,12 @@ async function saveProduct() {
 
         });
 
-        const result = await response.json();
+        const result = await response.text();
 
-        if (result.success) {
+        if (result.trim() === "SUCCESS") {
 
-            message.textContent = "Product saved successfully!";
+            message.textContent =
+                "Product saved successfully!";
 
             document.getElementById("productName").value = "";
             document.getElementById("price").value = "";
@@ -483,13 +499,15 @@ async function saveProduct() {
 
         } else {
 
-            message.textContent = "Error: " + result.error;
+            message.textContent =
+                result || "An unknown error occurred.";
 
         }
 
     } catch (error) {
 
-        message.textContent = "Connection error. Please try again.";
+        message.textContent =
+            "Connection error: " + error.message;
 
     }
 
@@ -500,4 +518,8 @@ async function saveProduct() {
 </script>
 
 </body>
-    </html>
+</html>
+
+بعد لصقه في GitHub، اضغطي Commit changes.
+
+ثم لا نعمل أي شيء آخر حتى تتأكدي أن الحفظ تم.
