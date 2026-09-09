@@ -43,8 +43,6 @@ header {
     min-height: calc(100vh - 70px);
 }
 
-/* Sidebar */
-
 .sidebar {
     width: 230px;
     background: white;
@@ -77,8 +75,6 @@ header {
     background: #f5efec;
 }
 
-/* Main */
-
 .main {
     flex: 1;
     padding: 30px;
@@ -107,12 +103,6 @@ header {
     font-size: 14px;
 }
 
-.add-btn:hover {
-    opacity: .85;
-}
-
-/* Cards */
-
 .cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -137,8 +127,6 @@ header {
     font-size: 28px;
     font-weight: bold;
 }
-
-/* Product form */
 
 .form-box {
     background: white;
@@ -205,7 +193,15 @@ header {
     cursor: pointer;
 }
 
-/* Mobile */
+.save-btn:disabled {
+    opacity: 0.6;
+}
+
+.message {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
 
 @media (max-width: 750px) {
 
@@ -264,141 +260,244 @@ header {
 
 <div class="container">
 
-    <aside class="sidebar">
+<aside class="sidebar">
 
-        <h3>Management</h3>
+<h3>Management</h3>
 
-        <button class="menu">📊 Dashboard</button>
-        <button class="menu">🛍️ Products</button>
-        <button class="menu">➕ Add Product</button>
-        <button class="menu">📦 Orders</button>
-        <button class="menu">👥 Customers</button>
-        <button class="menu">⚙️ Settings</button>
+<button class="menu">📊 Dashboard</button>
+<button class="menu">🛍️ Products</button>
+<button class="menu">➕ Add Product</button>
+<button class="menu">📦 Orders</button>
+<button class="menu">👥 Customers</button>
+<button class="menu">⚙️ Settings</button>
 
-    </aside>
+</aside>
 
-    <main class="main">
+<main class="main">
 
-        <div class="page-title">
-            <h1>Products</h1>
+<div class="page-title">
+    <h1>Products</h1>
+    <button class="add-btn" onclick="scrollToForm()">+ Add Product</button>
+</div>
 
-            <button class="add-btn">
-                + Add Product
-            </button>
-        </div>
+<div class="cards">
 
-        <div class="cards">
+<div class="card">
+    <div class="card-title">TOTAL PRODUCTS</div>
+    <div class="card-number" id="totalProducts">0</div>
+</div>
 
-            <div class="card">
-                <div class="card-title">TOTAL PRODUCTS</div>
-                <div class="card-number">0</div>
-            </div>
+<div class="card">
+    <div class="card-title">NEW PRODUCTS</div>
+    <div class="card-number" id="newProducts">0</div>
+</div>
 
-            <div class="card">
-                <div class="card-title">NEW PRODUCTS</div>
-                <div class="card-number">0</div>
-            </div>
-
-            <div class="card">
-                <div class="card-title">SALE PRODUCTS</div>
-                <div class="card-number">0</div>
-            </div>
-
-        </div>
-
-        <div class="form-box">
-
-            <h2>Add New Product</h2>
-
-            <div class="form-group">
-                <label>Product Name</label>
-                <input type="text" placeholder="Example: Silk Midi Dress">
-            </div>
-
-            <div class="row">
-
-                <div class="form-group">
-                    <label>Price (€)</label>
-                    <input type="number" placeholder="79.00">
-                </div>
-
-                <div class="form-group">
-                    <label>Old Price (€)</label>
-                    <input type="number" placeholder="99.00">
-                </div>
-
-            </div>
-
-            <div class="form-group">
-                <label>Category</label>
-
-                <select>
-                    <option>Dresses</option>
-                    <option>Tops</option>
-                    <option>Bottoms</option>
-                    <option>Accessories</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Product Description</label>
-
-                <textarea placeholder="Write product description..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Product Images</label>
-
-                <input type="text"
-                       placeholder="Image URL 1">
-
-                <br><br>
-
-                <input type="text"
-                       placeholder="Image URL 2">
-            </div>
-
-            <div class="row">
-
-                <div class="form-group">
-                    <label>Stock</label>
-                    <input type="number" placeholder="10">
-                </div>
-
-                <div class="form-group">
-                    <label>Status</label>
-
-                    <select>
-                        <option>Available</option>
-                        <option>Out of Stock</option>
-                    </select>
-                </div>
-
-            </div>
-
-            <div class="checks">
-
-                <label>
-                    <input type="checkbox">
-                    NEW
-                </label>
-
-                <label>
-                    <input type="checkbox">
-                    SALE
-                </label>
-
-            </div>
-
-            <button class="save-btn">
-                Save Product
-            </button>
-
-        </div>
-
-    </main>
+<div class="card">
+    <div class="card-title">SALE PRODUCTS</div>
+    <div class="card-number" id="saleProducts">0</div>
+</div>
 
 </div>
 
+<div class="form-box" id="productForm">
+
+<h2>Add New Product</h2>
+
+<div class="form-group">
+<label>Product Name</label>
+<input type="text" id="productName" placeholder="Example: Silk Midi Dress">
+</div>
+
+<div class="row">
+
+<div class="form-group">
+<label>Price (€)</label>
+<input type="number" id="price" placeholder="79.00">
+</div>
+
+<div class="form-group">
+<label>Old Price (€)</label>
+<input type="number" id="oldPrice" placeholder="99.00">
+</div>
+
+</div>
+
+<div class="form-group">
+<label>Category</label>
+
+<select id="category">
+<option>Dresses</option>
+<option>Tops</option>
+<option>Bottoms</option>
+<option>Accessories</option>
+</select>
+
+</div>
+
+<div class="form-group">
+<label>Product Description</label>
+
+<textarea id="description" placeholder="Write product description..."></textarea>
+
+</div>
+
+<div class="form-group">
+<label>Product Images</label>
+
+<input type="text" id="image1" placeholder="Image URL 1">
+
+<br><br>
+
+<input type="text" id="image2" placeholder="Image URL 2">
+
+</div>
+
+<div class="row">
+
+<div class="form-group">
+<label>Stock</label>
+<input type="number" id="stock" placeholder="10">
+</div>
+
+<div class="form-group">
+<label>Status</label>
+
+<select id="status">
+<option>Available</option>
+<option>Out of Stock</option>
+</select>
+
+</div>
+
+</div>
+
+<div class="checks">
+
+<label>
+<input type="checkbox" id="newProduct">
+NEW
+</label>
+
+<label>
+<input type="checkbox" id="sale">
+SALE
+</label>
+
+</div>
+
+<button class="save-btn" id="saveButton" onclick="saveProduct()">
+Save Product
+</button>
+
+<div class="message" id="message"></div>
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAYBy46FwQm_znbR7wzPb9rtzj6phhQXDJPTNX3dCDDc0kysevoo9ksiQEgjBqpi2Qjw/exec";
+
+function scrollToForm() {
+    document.getElementById("productForm").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+async function saveProduct() {
+
+    const button = document.getElementById("saveButton");
+    const message = document.getElementById("message");
+
+    const name = document.getElementById("productName").value.trim();
+    const price = document.getElementById("price").value;
+    const stock = document.getElementById("stock").value;
+
+    if (!name || !price || !stock) {
+        message.textContent = "Please fill in Product Name, Price and Stock.";
+        return;
+    }
+
+    const product = {
+
+        id: Date.now(),
+
+        name: name,
+
+        price: price,
+
+        oldPrice: document.getElementById("oldPrice").value,
+
+        category: document.getElementById("category").value,
+
+        description: document.getElementById("description").value,
+
+        image1: document.getElementById("image1").value,
+
+        image2: document.getElementById("image2").value,
+
+        stock: stock,
+
+        status: document.getElementById("status").value,
+
+        newProduct: document.getElementById("newProduct").checked,
+
+        sale: document.getElementById("sale").checked
+
+    };
+
+    button.disabled = true;
+    button.textContent = "Saving...";
+
+    message.textContent = "";
+
+    try {
+
+        const response = await fetch(SCRIPT_URL, {
+
+            method: "POST",
+
+            body: JSON.stringify(product)
+
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            message.textContent = "Product saved successfully!";
+
+            document.getElementById("productName").value = "";
+            document.getElementById("price").value = "";
+            document.getElementById("oldPrice").value = "";
+            document.getElementById("description").value = "";
+            document.getElementById("image1").value = "";
+            document.getElementById("image2").value = "";
+            document.getElementById("stock").value = "";
+
+            document.getElementById("newProduct").checked = false;
+            document.getElementById("sale").checked = false;
+
+        } else {
+
+            message.textContent = "Error: " + result.error;
+
+        }
+
+    } catch (error) {
+
+        message.textContent = "Connection error. Please try again.";
+
+    }
+
+    button.disabled = false;
+    button.textContent = "Save Product";
+}
+
+</script>
+
 </body>
-  </html>
+    </html>
