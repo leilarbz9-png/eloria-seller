@@ -7,247 +7,340 @@
 <title>ÉLORIA — Seller Dashboard</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#faf7f5;
+    color:#2f2926
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #faf7f5;
-    color: #2f2926;
+header{
+    background:white;
+    border-bottom:1px solid #eee;
+    padding:18px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center
 }
 
-header {
-    background: white;
-    border-bottom: 1px solid #eee;
-    padding: 18px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.logo{
+    font-size:25px;
+    letter-spacing:4px;
+    font-weight:bold
 }
 
-.logo {
-    font-size: 25px;
-    letter-spacing: 4px;
-    font-weight: bold;
+.admin-label{
+    font-size:13px;
+    color:#777
 }
 
-.admin-label {
-    font-size: 13px;
-    color: #777;
+.container{
+    display:flex;
+    min-height:calc(100vh - 70px)
 }
 
-.container {
-    display: flex;
-    min-height: calc(100vh - 70px);
+.sidebar{
+    width:230px;
+    background:white;
+    border-right:1px solid #eee;
+    padding:25px 15px
 }
 
-.sidebar {
-    width: 230px;
-    background: white;
-    border-right: 1px solid #eee;
-    padding: 25px 15px;
+.sidebar h3{
+    margin:0 0 25px;
+    font-size:14px;
+    color:#999;
+    text-transform:uppercase;
+    letter-spacing:1px
 }
 
-.sidebar h3 {
-    margin: 0 0 25px;
-    font-size: 14px;
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.menu{
+    display:block;
+    width:100%;
+    border:none;
+    background:none;
+    text-align:left;
+    padding:14px;
+    margin-bottom:6px;
+    border-radius:8px;
+    font-size:15px;
+    cursor:pointer
 }
 
-.menu {
-    display: block;
-    width: 100%;
-    border: none;
-    background: none;
-    text-align: left;
-    padding: 14px;
-    margin-bottom: 6px;
-    border-radius: 8px;
-    font-size: 15px;
-    cursor: pointer;
+.menu:hover{
+    background:#f5efec
 }
 
-.menu:hover {
-    background: #f5efec;
+.main{
+    flex:1;
+    padding:30px
 }
 
-.main {
-    flex: 1;
-    padding: 30px;
+.page-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px
 }
 
-.page-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+.page-title h1{
+    margin:0;
+    font-size:28px;
+    font-weight:500
 }
 
-.page-title h1 {
-    margin: 0;
-    font-size: 28px;
-    font-weight: 500;
+.add-btn{
+    background:#2f2926;
+    color:white;
+    border:none;
+    padding:13px 20px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:14px
 }
 
-.add-btn {
-    background: #2f2926;
-    color: white;
-    border: none;
-    padding: 13px 20px;
-    border-radius: 7px;
-    cursor: pointer;
-    font-size: 14px;
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-bottom:35px
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin-bottom: 35px;
+.card{
+    background:white;
+    border:1px solid #eee;
+    border-radius:10px;
+    padding:22px
 }
 
-.card {
-    background: white;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    padding: 22px;
+.card-title{
+    color:#888;
+    font-size:13px;
+    margin-bottom:10px
 }
 
-.card-title {
-    color: #888;
-    font-size: 13px;
-    margin-bottom: 10px;
+.card-number{
+    font-size:28px;
+    font-weight:bold
 }
 
-.card-number {
-    font-size: 28px;
-    font-weight: bold;
+.form-box{
+    background:white;
+    border:1px solid #eee;
+    border-radius:10px;
+    padding:25px;
+    max-width:900px;
+    margin-bottom:30px
 }
 
-.form-box {
-    background: white;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    padding: 25px;
-    max-width: 800px;
+.form-box h2{
+    margin-top:0;
+    font-size:21px
 }
 
-.form-box h2 {
-    margin-top: 0;
-    font-size: 21px;
+.form-group{
+    margin-bottom:18px
 }
 
-.form-group {
-    margin-bottom: 18px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 7px;
-    font-size: 14px;
-    font-weight: bold;
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    font-size:14px;
+    font-weight:bold
 }
 
 .form-group input,
 .form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    outline: none;
+.form-group textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:6px;
+    font-size:14px;
+    outline:none
 }
 
-.form-group textarea {
-    min-height: 100px;
-    resize: vertical;
+.form-group textarea{
+    min-height:100px;
+    resize:vertical
 }
 
-.row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px
 }
 
-.checks {
-    display: flex;
-    gap: 25px;
-    margin: 10px 0 20px;
+.checks{
+    display:flex;
+    gap:25px;
+    margin:10px 0 20px
 }
 
-.checks label {
-    font-size: 14px;
+.checks label{
+    font-size:14px
 }
 
-.save-btn {
-    background: #2f2926;
-    color: white;
-    border: none;
-    padding: 13px 25px;
-    border-radius: 6px;
-    cursor: pointer;
+.save-btn{
+    background:#2f2926;
+    color:white;
+    border:none;
+    padding:13px 25px;
+    border-radius:6px;
+    cursor:pointer
 }
 
-.save-btn:disabled {
-    opacity: 0.6;
+.save-btn:disabled{
+    opacity:.6
 }
 
-.message {
-    margin-top: 15px;
-    font-size: 14px;
-    font-weight: bold;
+.message{
+    margin-top:15px;
+    font-size:14px;
+    font-weight:bold
 }
 
-@media (max-width: 750px) {
+/* COLLECTIONS */
 
-    .container {
-        display: block;
+.collection-products{
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:15px;
+    max-height:350px;
+    overflow-y:auto;
+    background:#fafafa
+}
+
+.product-option{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px;
+    background:white;
+    border-bottom:1px solid #eee
+}
+
+.product-option:last-child{
+    border-bottom:none
+}
+
+.product-option input{
+    width:18px;
+    height:18px
+}
+
+.product-option img{
+    width:55px;
+    height:65px;
+    object-fit:cover;
+    border-radius:5px
+}
+
+.product-info{
+    flex:1
+}
+
+.product-name{
+    font-weight:bold;
+    font-size:14px
+}
+
+.product-price{
+    color:#777;
+    font-size:13px;
+    margin-top:4px
+}
+
+.empty-products{
+    padding:20px;
+    text-align:center;
+    color:#888
+}
+
+.collection-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-top:20px
+}
+
+.collection-card{
+    background:white;
+    border:1px solid #eee;
+    border-radius:10px;
+    padding:15px
+}
+
+.collection-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:7px;
+    margin-bottom:12px
+}
+
+.collection-card h3{
+    margin:0 0 7px;
+    font-size:18px
+}
+
+.collection-card p{
+    color:#777;
+    font-size:13px;
+    margin:0 0 10px
+}
+
+@media(max-width:750px){
+
+    .container{
+        display:block
     }
 
-    .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #eee;
-        padding: 12px;
-        overflow-x: auto;
-        white-space: nowrap;
+    .sidebar{
+        width:100%;
+        border-right:none;
+        border-bottom:1px solid #eee;
+        padding:12px;
+        overflow-x:auto;
+        white-space:nowrap
     }
 
-    .sidebar h3 {
-        display: none;
+    .sidebar h3{
+        display:none
     }
 
-    .menu {
-        display: inline-block;
-        width: auto;
-        margin-right: 4px;
-        padding: 10px;
+    .menu{
+        display:inline-block;
+        width:auto;
+        margin-right:4px;
+        padding:10px
     }
 
-    .main {
-        padding: 20px 15px;
+    .main{
+        padding:20px 15px
     }
 
-    .cards {
-        grid-template-columns: 1fr;
+    .cards{
+        grid-template-columns:1fr
     }
 
-    .row {
-        grid-template-columns: 1fr;
+    .row{
+        grid-template-columns:1fr
     }
 
-    .page-title {
-        gap: 15px;
-        align-items: flex-start;
+    .page-title{
+        gap:15px;
+        align-items:flex-start
     }
 
-    .page-title h1 {
-        font-size: 23px;
+    .page-title h1{
+        font-size:23px
+    }
+
+    .collection-list{
+        grid-template-columns:1fr
     }
 }
 </style>
@@ -266,9 +359,9 @@ header {
 
 <h3>Management</h3>
 
-<button class="menu">📊 Dashboard</button>
-<button class="menu">🛍️ Products</button>
-<button class="menu">➕ Add Product</button>
+<button class="menu" onclick="showProducts()">📊 Products</button>
+<button class="menu" onclick="scrollToProduct()">➕ Add Product</button>
+<button class="menu" onclick="scrollToCollection()">✨ Collections</button>
 <button class="menu">📦 Orders</button>
 <button class="menu">👥 Customers</button>
 <button class="menu">⚙️ Settings</button>
@@ -279,7 +372,7 @@ header {
 
 <div class="page-title">
     <h1>Products</h1>
-    <button class="add-btn" onclick="scrollToForm()">+ Add Product</button>
+    <button class="add-btn" onclick="scrollToProduct()">+ Add Product</button>
 </div>
 
 <div class="cards">
@@ -300,6 +393,9 @@ header {
 </div>
 
 </div>
+
+
+<!-- PRODUCT FORM -->
 
 <div class="form-box" id="productForm">
 
@@ -339,7 +435,8 @@ header {
 <div class="form-group">
 <label>Product Description</label>
 
-<textarea id="description" placeholder="Write product description..."></textarea>
+<textarea id="description"
+placeholder="Write product description..."></textarea>
 
 </div>
 
@@ -395,28 +492,294 @@ Save Product
 
 </div>
 
+
+<!-- COLLECTION FORM -->
+
+<div class="form-box" id="collectionForm">
+
+<h2>✨ Create Collection</h2>
+
+<div class="form-group">
+<label>Collection Name</label>
+
+<input
+type="text"
+id="collectionName"
+placeholder="Example: Autumn 2026">
+</div>
+
+<div class="form-group">
+<label>Short Description</label>
+
+<textarea
+id="collectionDescription"
+placeholder="Example: Elegant pieces for the new season..."></textarea>
+
+</div>
+
+<div class="form-group">
+<label>Collection Image 1</label>
+
+<input
+type="text"
+id="collectionImage1"
+placeholder="Image URL">
+</div>
+
+<div class="form-group">
+<label>Collection Image 2</label>
+
+<input
+type="text"
+id="collectionImage2"
+placeholder="Image URL">
+</div>
+
+<div class="form-group">
+
+<label>Select Products for this Collection</label>
+
+<div
+class="collection-products"
+id="productSelection">
+
+<div class="empty-products">
+Loading products...
+</div>
+
+</div>
+
+</div>
+
+<button
+class="save-btn"
+id="saveCollectionButton"
+onclick="saveCollection()">
+
+Save Collection
+
+</button>
+
+<div class="message" id="collectionMessage"></div>
+
+</div>
+
+
+<!-- EXISTING COLLECTIONS -->
+
+<div class="form-box">
+
+<h2>Collections</h2>
+
+<div
+class="collection-list"
+id="collectionList">
+
+<div class="empty-products">
+Loading collections...
+</div>
+
+</div>
+
+</div>
+
 </main>
 
 </div>
+
 
 <script>
 
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbzAYBy46FwQm_znbR7wzPb9rtzj6phhQXDJPTNX3dCDDc0kysevoo9ksiQEgjBqpi2Qjw/exec";
 
-function scrollToForm() {
-    document.getElementById("productForm").scrollIntoView({
-        behavior: "smooth"
+
+let products = [];
+let collections = [];
+
+
+/* ---------------- PRODUCT JSONP ---------------- */
+
+function loadProducts(){
+
+    const callbackName =
+        "productsCallback_" + Date.now();
+
+    window[callbackName] = function(data){
+
+        products = Array.isArray(data) ? data : [];
+
+        updateProductStats();
+        renderProductSelection();
+
+        delete window[callbackName];
+
+        script.remove();
+    };
+
+    const script =
+        document.createElement("script");
+
+    script.src =
+        SCRIPT_URL +
+        "?callback=" +
+        callbackName;
+
+    document.body.appendChild(script);
+}
+
+
+/* ---------------- COLLECTION JSONP ---------------- */
+
+function loadCollections(){
+
+    const callbackName =
+        "collectionsCallback_" + Date.now();
+
+    window[callbackName] = function(data){
+
+        collections =
+            Array.isArray(data) ? data : [];
+
+        renderCollections();
+
+        delete window[callbackName];
+
+        script.remove();
+    };
+
+    const script =
+        document.createElement("script");
+
+    script.src =
+        SCRIPT_URL +
+        "?type=collections&callback=" +
+        callbackName;
+
+    document.body.appendChild(script);
+}
+
+
+/* ---------------- STATS ---------------- */
+
+function isTrue(value){
+
+    return value === true ||
+           value === "true" ||
+           value === "TRUE" ||
+           value === 1 ||
+           value === "1";
+}
+
+
+function updateProductStats(){
+
+    document.getElementById("totalProducts")
+        .textContent = products.length;
+
+    document.getElementById("newProducts")
+        .textContent =
+        products.filter(p =>
+            isTrue(p["New"] || p.newProduct)
+        ).length;
+
+    document.getElementById("saleProducts")
+        .textContent =
+        products.filter(p =>
+            isTrue(p["Sale"] || p.sale)
+        ).length;
+}
+
+
+/* ---------------- PRODUCT SELECTION ---------------- */
+
+function renderProductSelection(){
+
+    const box =
+        document.getElementById("productSelection");
+
+    if(!products.length){
+
+        box.innerHTML =
+            '<div class="empty-products">No products found.</div>';
+
+        return;
+    }
+
+    box.innerHTML = "";
+
+    products.forEach(product => {
+
+        const id =
+            product["ID"] ||
+            product.id ||
+            "";
+
+        const name =
+            product["Product Name"] ||
+            product.name ||
+            "Product";
+
+        const price =
+            product["Price"] ||
+            product.price ||
+            "";
+
+        const image =
+            product["Image 1"] ||
+            product.image1 ||
+            "";
+
+        const item =
+            document.createElement("label");
+
+        item.className = "product-option";
+
+        item.innerHTML = `
+
+            <input
+                type="checkbox"
+                class="collection-product"
+                value="${id}">
+
+            ${
+                image
+                ? `<img src="${image}" alt="">`
+                : ""
+            }
+
+            <div class="product-info">
+
+                <div class="product-name">
+                    ${escapeHTML(name)}
+                </div>
+
+                <div class="product-price">
+                    ${escapeHTML(String(price))} €
+                </div>
+
+            </div>
+        `;
+
+        box.appendChild(item);
+
     });
 }
 
-async function saveProduct() {
 
-    const button = document.getElementById("saveButton");
-    const message = document.getElementById("message");
+/* ---------------- SAVE PRODUCT ---------------- */
+
+async function saveProduct(){
+
+    const button =
+        document.getElementById("saveButton");
+
+    const message =
+        document.getElementById("message");
 
     const name =
-        document.getElementById("productName").value.trim();
+        document.getElementById("productName")
+        .value.trim();
 
     const price =
         document.getElementById("price").value;
@@ -424,9 +787,11 @@ async function saveProduct() {
     const stock =
         document.getElementById("stock").value;
 
-    if (!name || !price || !stock) {
+    if(!name || !price || !stock){
+
         message.textContent =
             "Please fill in Product Name, Price and Stock.";
+
         return;
     }
 
@@ -434,9 +799,9 @@ async function saveProduct() {
 
         id: Date.now(),
 
-        name: name,
+        name:name,
 
-        price: price,
+        price:price,
 
         oldPrice:
             document.getElementById("oldPrice").value,
@@ -453,7 +818,7 @@ async function saveProduct() {
         image2:
             document.getElementById("image2").value,
 
-        stock: stock,
+        stock:stock,
 
         status:
             document.getElementById("status").value,
@@ -469,42 +834,33 @@ async function saveProduct() {
     button.textContent = "Saving...";
     message.textContent = "";
 
-    try {
+    try{
 
-        const response = await fetch(SCRIPT_URL, {
+        const response =
+            await fetch(SCRIPT_URL,{
+                method:"POST",
+                body:JSON.stringify(product)
+            });
 
-            method: "POST",
+        const result =
+            await response.text();
 
-            body: JSON.stringify(product)
-
-        });
-
-        const result = await response.text();
-
-        if (result.trim() === "SUCCESS") {
+        if(result.trim() === "SUCCESS"){
 
             message.textContent =
                 "Product saved successfully!";
 
-            document.getElementById("productName").value = "";
-            document.getElementById("price").value = "";
-            document.getElementById("oldPrice").value = "";
-            document.getElementById("description").value = "";
-            document.getElementById("image1").value = "";
-            document.getElementById("image2").value = "";
-            document.getElementById("stock").value = "";
+            clearProductForm();
 
-            document.getElementById("newProduct").checked = false;
-            document.getElementById("sale").checked = false;
+            loadProducts();
 
-        } else {
+        }else{
 
             message.textContent =
                 result || "An unknown error occurred.";
-
         }
 
-    } catch (error) {
+    }catch(error){
 
         message.textContent =
             "Connection error: " + error.message;
@@ -515,11 +871,257 @@ async function saveProduct() {
     button.textContent = "Save Product";
 }
 
+
+/* ---------------- SAVE COLLECTION ---------------- */
+
+async function saveCollection(){
+
+    const button =
+        document.getElementById("saveCollectionButton");
+
+    const message =
+        document.getElementById("collectionMessage");
+
+    const name =
+        document.getElementById("collectionName")
+        .value.trim();
+
+    if(!name){
+
+        message.textContent =
+            "Please enter a collection name.";
+
+        return;
+    }
+
+
+    const selectedProducts =
+        Array.from(
+            document.querySelectorAll(
+                ".collection-product:checked"
+            )
+        ).map(input => input.value);
+
+
+    const collection = {
+
+        type:"collection",
+
+        id:Date.now(),
+
+        name:name,
+
+        description:
+            document.getElementById(
+                "collectionDescription"
+            ).value,
+
+        image1:
+            document.getElementById(
+                "collectionImage1"
+            ).value,
+
+        image2:
+            document.getElementById(
+                "collectionImage2"
+            ).value,
+
+        productIds:
+            selectedProducts.join(",")
+    };
+
+
+    button.disabled = true;
+    button.textContent = "Saving...";
+    message.textContent = "";
+
+
+    try{
+
+        const response =
+            await fetch(SCRIPT_URL,{
+                method:"POST",
+                body:JSON.stringify(collection)
+            });
+
+        const result =
+            await response.text();
+
+
+        if(result.trim() === "SUCCESS"){
+
+            message.textContent =
+                "Collection saved successfully!";
+
+            clearCollectionForm();
+
+            loadCollections();
+
+        }else{
+
+            message.textContent =
+                result || "An unknown error occurred.";
+        }
+
+
+    }catch(error){
+
+        message.textContent =
+            "Connection error: " + error.message;
+    }
+
+
+    button.disabled = false;
+    button.textContent = "Save Collection";
+}
+
+
+/* ---------------- COLLECTION DISPLAY ---------------- */
+
+function renderCollections(){
+
+    const box =
+        document.getElementById("collectionList");
+
+    if(!collections.length){
+
+        box.innerHTML =
+            '<div class="empty-products">No collections yet.</div>';
+
+        return;
+    }
+
+    box.innerHTML = "";
+
+    collections.forEach(collection => {
+
+        const name =
+            collection["Collection Name"] ||
+            collection.name ||
+            "Collection";
+
+        const description =
+            collection["Description"] ||
+            collection.description ||
+            "";
+
+        const image =
+            collection["Image 1"] ||
+            collection.image1 ||
+            "";
+
+        const card =
+            document.createElement("div");
+
+        card.className = "collection-card";
+
+        card.innerHTML = `
+
+            ${
+                image
+                ? `<img src="${image}" alt="">`
+                : ""
+            }
+
+            <h3>
+                ${escapeHTML(name)}
+            </h3>
+
+            <p>
+                ${escapeHTML(description)}
+            </p>
+        `;
+
+        box.appendChild(card);
+
+    });
+}
+
+
+/* ---------------- CLEAR FORMS ---------------- */
+
+function clearProductForm(){
+
+    document.getElementById("productName").value="";
+    document.getElementById("price").value="";
+    document.getElementById("oldPrice").value="";
+    document.getElementById("description").value="";
+    document.getElementById("image1").value="";
+    document.getElementById("image2").value="";
+    document.getElementById("stock").value="";
+
+    document.getElementById("newProduct").checked=false;
+    document.getElementById("sale").checked=false;
+}
+
+
+function clearCollectionForm(){
+
+    document.getElementById("collectionName").value="";
+    document.getElementById("collectionDescription").value="";
+    document.getElementById("collectionImage1").value="";
+    document.getElementById("collectionImage2").value="";
+
+    document.querySelectorAll(
+        ".collection-product"
+    ).forEach(input => {
+
+        input.checked = false;
+
+    });
+}
+
+
+/* ---------------- NAVIGATION ---------------- */
+
+function scrollToProduct(){
+
+    document.getElementById(
+        "productForm"
+    ).scrollIntoView({
+        behavior:"smooth"
+    });
+}
+
+
+function scrollToCollection(){
+
+    document.getElementById(
+        "collectionForm"
+    ).scrollIntoView({
+        behavior:"smooth"
+    });
+}
+
+
+function showProducts(){
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* ---------------- SECURITY ---------------- */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* ---------------- START ---------------- */
+
+loadProducts();
+loadCollections();
+
 </script>
 
 </body>
-</html>
-
-بعد لصقه في GitHub، اضغطي Commit changes.
-
-ثم لا نعمل أي شيء آخر حتى تتأكدي أن الحفظ تم.
+    </html>
