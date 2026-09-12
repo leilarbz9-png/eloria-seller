@@ -384,6 +384,24 @@ header{
 
 }
 
+
+/* ===== ELORIA MANAGEMENT / VARIANTS ===== */
+.variant-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:5px}
+.variant-help{display:block;color:#888;font-size:12px;margin-top:6px}
+.manage-list{display:grid;gap:12px;margin-top:18px}
+.manage-item{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #eee;border-radius:10px;padding:12px}
+.manage-item img{width:58px;height:72px;object-fit:cover;border-radius:6px}
+.manage-info{flex:1;min-width:0}
+.manage-info strong{display:block;margin-bottom:5px}
+.manage-meta{font-size:12px;color:#888;line-height:1.6}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+.edit-btn,.delete-btn{border:1px solid #ddd;background:#fff;border-radius:6px;padding:8px 11px;cursor:pointer;font-size:12px}
+.edit-btn:hover{background:#f5efec}
+.delete-btn{color:#a33;border-color:#e5caca}
+.delete-btn:hover{background:#fff2f2}
+.cancel-btn{background:#eee;color:#333;border:0;padding:13px 20px;border-radius:6px;cursor:pointer;margin-left:8px}
+@media(max-width:750px){.variant-grid{grid-template-columns:1fr}.manage-item{align-items:flex-start}.manage-item img{width:52px;height:65px}}
+
 </style>
 
 </head>
@@ -427,15 +445,15 @@ onclick="scrollToCollection()">
 ✨ Collections
 </button>
 
-<button class="menu">
+<button class="menu" onclick="showOrders()">
 📦 Orders
 </button>
 
-<button class="menu">
+<button class="menu" onclick="showCustomers()">
 👥 Customers
 </button>
 
-<button class="menu">
+<button class="menu" onclick="showSettings()">
 ⚙️ Settings
 </button>
 
@@ -654,6 +672,23 @@ alt="Image 2 preview">
 
 </div>
 
+
+
+<div class="variant-grid">
+
+<div class="form-group">
+<label>Colors</label>
+<input type="text" id="colors" placeholder="Black, Beige, Brown">
+<small class="variant-help">Separate colors with commas.</small>
+</div>
+
+<div class="form-group">
+<label>Sizes</label>
+<input type="text" id="sizes" placeholder="XS, S, M, L, XL">
+<small class="variant-help">Separate sizes with commas.</small>
+</div>
+
+</div>
 
 <div class="row">
 
@@ -889,6 +924,46 @@ Loading collections...
 
 </div>
 
+
+
+<div class="form-box">
+<h2>Manage Products</h2>
+<div class="manage-list" id="productManageList">
+<div class="empty-products">Loading products...</div>
+</div>
+</div>
+
+<div class="form-box">
+<h2>Orders</h2>
+<div class="manage-list" id="ordersPanel">
+<div class="empty-products">No orders yet.</div>
+</div>
+</div>
+
+<div class="form-box">
+<h2>Customers</h2>
+<div class="manage-list" id="customersPanel">
+<div class="empty-products">No customers yet.</div>
+</div>
+</div>
+
+<div class="form-box">
+<h2>Settings</h2>
+<div class="form-group">
+<label>Store Name</label>
+<input id="storeNameSetting" value="ÉLORIA">
+</div>
+<div class="form-group">
+<label>Currency</label>
+<select id="currencySetting">
+<option value="€">€</option>
+<option value="DA">DA</option>
+<option value="$">$</option>
+</select>
+</div>
+<button class="save-btn" onclick="saveSettings()">Save Settings</button>
+<div class="message" id="settingsMessage"></div>
+</div>
 
 </main>
 
@@ -1131,6 +1206,7 @@ function loadProducts(){
             updateProductStats();
 
             renderProductSelection();
+            renderProductManagement();
 
 
             delete window[callbackName];
@@ -1987,6 +2063,300 @@ function escapeHTML(value){
 loadProducts();
 
 loadCollections();
+
+
+/* =========================================================
+   ELORIA UPDATED MANAGEMENT
+   Colors + Sizes + Edit/Delete + Orders + Customers + Settings
+========================================================= */
+
+let editingProductId = null;
+let editingCollectionId = null;
+
+function productIdOf(p){ return String(p["ID"] ?? p.id ?? ""); }
+function collectionIdOf(c){ return String(c["ID"] ?? c.id ?? ""); }
+
+function productField(p,a,b=""){ return p[a] ?? p[b] ?? ""; }
+
+function renderProductManagement(){
+    const box=document.getElementById("productManageList");
+    if(!box) return;
+    if(!products.length){
+        box.innerHTML='<div class="empty-products">No products yet.</div>';
+        return;
+    }
+    box.innerHTML="";
+    products.forEach(p=>{
+        const image=productField(p,"Image 1","image1");
+        const colors=productField(p,"Colors","colors");
+        const sizes=productField(p,"Sizes","sizes");
+        const item=document.createElement("div");
+        item.className="manage-item";
+        item.innerHTML=`
+            ${image?`<img src="${escapeHTML(String(image))}" alt="">`:""}
+            <div class="manage-info">
+                <strong>${escapeHTML(String(productField(p,"Product Name","name")||"Product"))}</strong>
+                <div class="manage-meta">${escapeHTML(String(productField(p,"Price","price")))} €</div>
+                ${colors?`<div class="manage-meta">Colors: ${escapeHTML(String(colors))}</div>`:""}
+                ${sizes?`<div class="manage-meta">Sizes: ${escapeHTML(String(sizes))}</div>`:""}
+            </div>
+            <div class="actions">
+                <button class="edit-btn" onclick="editProduct('${escapeHTML(productIdOf(p))}')">✏️ Edit</button>
+                <button class="delete-btn" onclick="deleteProduct('${escapeHTML(productIdOf(p))}')">🗑️ Delete</button>
+            </div>`;
+        box.appendChild(item);
+    });
+}
+
+function editProduct(id){
+    const p=products.find(x=>productIdOf(x)===String(id));
+    if(!p) return;
+    editingProductId=String(id);
+
+    document.getElementById("productName").value=productField(p,"Product Name","name");
+    document.getElementById("price").value=productField(p,"Price","price");
+    document.getElementById("oldPrice").value=productField(p,"Old Price","oldPrice");
+    document.getElementById("category").value=productField(p,"Category","category")||"Dresses";
+    document.getElementById("description").value=productField(p,"Description","description");
+    document.getElementById("stock").value=productField(p,"Stock","stock");
+    document.getElementById("status").value=productField(p,"Status","status")||"Available";
+    document.getElementById("colors").value=productField(p,"Colors","colors");
+    document.getElementById("sizes").value=productField(p,"Sizes","sizes");
+    document.getElementById("newProduct").checked=isTrue(productField(p,"New","newProduct"));
+    document.getElementById("sale").checked=isTrue(productField(p,"Sale","sale"));
+    document.getElementById("saveButton").textContent="Update Product";
+    document.getElementById("productForm").scrollIntoView({behavior:"smooth"});
+}
+
+async function saveProduct(){
+    const button=document.getElementById("saveButton");
+    const message=document.getElementById("message");
+    const name=document.getElementById("productName").value.trim();
+    const price=document.getElementById("price").value;
+    const stock=document.getElementById("stock").value;
+
+    if(!name||!price||!stock){
+        message.textContent="Please fill in Product Name, Price and Stock.";
+        return;
+    }
+
+    const file1=document.getElementById("image1File").files[0];
+    const file2=document.getElementById("image2File").files[0];
+
+    button.disabled=true;
+    button.textContent="Uploading...";
+    message.textContent="";
+
+    try{
+        const image1=await compressImage(file1);
+        const image2=await compressImage(file2);
+
+        const payload={
+            action:editingProductId?"updateProduct":"createProduct",
+            id:editingProductId||Date.now(),
+            name:name,
+            price:price,
+            oldPrice:document.getElementById("oldPrice").value,
+            category:document.getElementById("category").value,
+            description:document.getElementById("description").value,
+            image1:image1,
+            image2:image2,
+            stock:stock,
+            status:document.getElementById("status").value,
+            newProduct:document.getElementById("newProduct").checked,
+            sale:document.getElementById("sale").checked,
+            colors:document.getElementById("colors").value.trim(),
+            sizes:document.getElementById("sizes").value.trim()
+        };
+
+        button.textContent="Saving...";
+        const response=await fetch(SCRIPT_URL,{method:"POST",body:JSON.stringify(payload)});
+        const result=await response.text();
+
+        if(result.trim()!=="SUCCESS") throw new Error(result||"Save failed");
+
+        message.textContent=editingProductId?"Product updated successfully!":"Product saved successfully!";
+        editingProductId=null;
+        clearProductForm();
+        loadProducts();
+    }catch(error){
+        message.textContent="Error: "+error.message;
+    }finally{
+        button.disabled=false;
+        button.textContent="Save Product";
+    }
+}
+
+async function deleteProduct(id){
+    if(!confirm("Delete this product?")) return;
+    const response=await fetch(SCRIPT_URL,{
+        method:"POST",
+        body:JSON.stringify({action:"deleteProduct",id:id})
+    });
+    const result=await response.text();
+    if(result.trim()==="SUCCESS") loadProducts();
+    else alert(result||"Could not delete product.");
+}
+
+function renderCollections(){
+    const box=document.getElementById("collectionList");
+    if(!box) return;
+    if(!collections.length){
+        box.innerHTML='<div class="empty-products">No collections yet.</div>';
+        return;
+    }
+    box.innerHTML="";
+    collections.forEach(c=>{
+        const name=productField(c,"Collection Name","name")||"Collection";
+        const desc=productField(c,"Description","description");
+        const image=productField(c,"Image 1","image1");
+        const id=collectionIdOf(c);
+        const card=document.createElement("div");
+        card.className="collection-card";
+        card.innerHTML=`
+            ${image?`<img src="${escapeHTML(String(image))}" alt="">`:""}
+            <h3>${escapeHTML(String(name))}</h3>
+            <p>${escapeHTML(String(desc))}</p>
+            <div class="actions">
+                <button class="edit-btn" onclick="editCollection('${escapeHTML(id)}')">✏️ Edit</button>
+                <button class="delete-btn" onclick="deleteCollection('${escapeHTML(id)}')">🗑️ Delete</button>
+            </div>`;
+        box.appendChild(card);
+    });
+}
+
+function editCollection(id){
+    const c=collections.find(x=>collectionIdOf(x)===String(id));
+    if(!c) return;
+    editingCollectionId=String(id);
+    document.getElementById("collectionName").value=productField(c,"Collection Name","name");
+    document.getElementById("collectionDescription").value=productField(c,"Description","description");
+    document.getElementById("saveCollectionButton").textContent="Update Collection";
+    document.getElementById("collectionForm").scrollIntoView({behavior:"smooth"});
+}
+
+async function saveCollection(){
+    const button=document.getElementById("saveCollectionButton");
+    const message=document.getElementById("collectionMessage");
+    const name=document.getElementById("collectionName").value.trim();
+    if(!name){message.textContent="Please enter a collection name.";return;}
+
+    const selectedProducts=Array.from(document.querySelectorAll(".collection-product:checked")).map(x=>x.value);
+    const file1=document.getElementById("collectionImage1File").files[0];
+    const file2=document.getElementById("collectionImage2File").files[0];
+
+    button.disabled=true;
+    button.textContent="Uploading...";
+    try{
+        const image1=await compressImage(file1);
+        const image2=await compressImage(file2);
+
+        const payload={
+            action:editingCollectionId?"updateCollection":"createCollection",
+            type:"collection",
+            id:editingCollectionId||Date.now(),
+            name:name,
+            description:document.getElementById("collectionDescription").value,
+            image1:image1,
+            image2:image2,
+            productIds:selectedProducts.join(",")
+        };
+
+        button.textContent="Saving...";
+        const response=await fetch(SCRIPT_URL,{method:"POST",body:JSON.stringify(payload)});
+        const result=await response.text();
+        if(result.trim()!=="SUCCESS") throw new Error(result||"Save failed");
+
+        message.textContent=editingCollectionId?"Collection updated successfully!":"Collection saved successfully!";
+        editingCollectionId=null;
+        clearCollectionForm();
+        loadCollections();
+    }catch(error){
+        message.textContent="Error: "+error.message;
+    }finally{
+        button.disabled=false;
+        button.textContent="Save Collection";
+    }
+}
+
+async function deleteCollection(id){
+    if(!confirm("Delete this collection?")) return;
+    const response=await fetch(SCRIPT_URL,{
+        method:"POST",
+        body:JSON.stringify({action:"deleteCollection",id:id})
+    });
+    const result=await response.text();
+    if(result.trim()==="SUCCESS") loadCollections();
+    else alert(result||"Could not delete collection.");
+}
+
+function showOrders(){
+    const box=document.getElementById("ordersPanel");
+    box.scrollIntoView({behavior:"smooth"});
+    const cb="orders_"+Date.now();
+    window[cb]=function(data){
+        const rows=Array.isArray(data)?data:[];
+        if(!rows.length){box.innerHTML='<div class="empty-products">No orders yet.</div>';return cleanup();}
+        box.innerHTML=rows.map(o=>`
+            <div class="manage-item">
+                <div class="manage-info">
+                    <strong>Order #${escapeHTML(String(o["Order ID"]||o["ID"]||""))}</strong>
+                    <div class="manage-meta">${escapeHTML(String(o["Name"]||o["Customer Name"]||""))}</div>
+                    <div class="manage-meta">${escapeHTML(String(o["Phone"]||""))}</div>
+                    <div class="manage-meta">Total: ${escapeHTML(String(o["Total"]||""))}</div>
+                    <div class="manage-meta">Status: ${escapeHTML(String(o["Status"]||"New"))}</div>
+                </div>
+            </div>`).join("");
+        cleanup();
+        function cleanup(){delete window[cb];if(script)script.remove();}
+    };
+    const script=document.createElement("script");
+    script.src=SCRIPT_URL+"?type=orders&callback="+cb+"&t="+Date.now();
+    document.body.appendChild(script);
+}
+
+function showCustomers(){
+    const box=document.getElementById("customersPanel");
+    box.scrollIntoView({behavior:"smooth"});
+    const cb="customers_"+Date.now();
+    window[cb]=function(data){
+        const rows=Array.isArray(data)?data:[];
+        if(!rows.length){box.innerHTML='<div class="empty-products">No customers yet.</div>';return cleanup();}
+        box.innerHTML=rows.map(c=>`
+            <div class="manage-item">
+                <div class="manage-info">
+                    <strong>${escapeHTML(String(c["Name"]||c["Customer Name"]||""))}</strong>
+                    <div class="manage-meta">${escapeHTML(String(c["Phone"]||""))}</div>
+                    <div class="manage-meta">${escapeHTML(String(c["Address"]||""))}</div>
+                </div>
+            </div>`).join("");
+        cleanup();
+        function cleanup(){delete window[cb];if(script)script.remove();}
+    };
+    const script=document.createElement("script");
+    script.src=SCRIPT_URL+"?type=customers&callback="+cb+"&t="+Date.now();
+    document.body.appendChild(script);
+}
+
+function showSettings(){
+    document.querySelector("#settingsPanel")?.scrollIntoView({behavior:"smooth"});
+    document.getElementById("storeNameSetting")?.focus();
+}
+
+function saveSettings(){
+    const name=document.getElementById("storeNameSetting").value.trim()||"ÉLORIA";
+    const currency=document.getElementById("currencySetting").value;
+    localStorage.setItem("eloriaStoreName",name);
+    localStorage.setItem("eloriaCurrency",currency);
+    document.getElementById("settingsMessage").textContent="Settings saved.";
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+    const n=localStorage.getItem("eloriaStoreName");
+    const c=localStorage.getItem("eloriaCurrency");
+    if(n&&document.getElementById("storeNameSetting")) document.getElementById("storeNameSetting").value=n;
+    if(c&&document.getElementById("currencySetting")) document.getElementById("currencySetting").value=c;
+});
 
 </script>
 
