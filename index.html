@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>ÉLORIA — Seller Dashboard</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box
+}
 
 body{
     margin:0;
@@ -202,7 +208,39 @@ header{
     font-weight:bold
 }
 
-/* COLLECTIONS */
+
+/* =========================
+   IMAGE UPLOAD
+========================= */
+
+.image-upload{
+    border:1px dashed #ccc;
+    border-radius:8px;
+    padding:15px;
+    background:#fafafa;
+    margin-bottom:15px
+}
+
+.image-upload input[type="file"]{
+    padding:10px;
+    background:white;
+    cursor:pointer
+}
+
+.preview{
+    display:none;
+    width:130px;
+    height:160px;
+    object-fit:cover;
+    border-radius:7px;
+    margin-top:12px;
+    border:1px solid #ddd
+}
+
+
+/* =========================
+   COLLECTIONS
+========================= */
 
 .collection-products{
     border:1px solid #ddd;
@@ -292,6 +330,7 @@ header{
     margin:0 0 10px
 }
 
+
 @media(max-width:750px){
 
     .container{
@@ -342,54 +381,131 @@ header{
     .collection-list{
         grid-template-columns:1fr
     }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-    <div class="logo">ÉLORIA</div>
-    <div class="admin-label">SELLER DASHBOARD</div>
+
+<div class="logo">
+ÉLORIA
+</div>
+
+<div class="admin-label">
+SELLER DASHBOARD
+</div>
+
 </header>
 
+
 <div class="container">
+
 
 <aside class="sidebar">
 
 <h3>Management</h3>
 
-<button class="menu" onclick="showProducts()">📊 Products</button>
-<button class="menu" onclick="scrollToProduct()">➕ Add Product</button>
-<button class="menu" onclick="scrollToCollection()">✨ Collections</button>
-<button class="menu">📦 Orders</button>
-<button class="menu">👥 Customers</button>
-<button class="menu">⚙️ Settings</button>
+<button class="menu"
+onclick="showProducts()">
+📊 Products
+</button>
+
+<button class="menu"
+onclick="scrollToProduct()">
+➕ Add Product
+</button>
+
+<button class="menu"
+onclick="scrollToCollection()">
+✨ Collections
+</button>
+
+<button class="menu">
+📦 Orders
+</button>
+
+<button class="menu">
+👥 Customers
+</button>
+
+<button class="menu">
+⚙️ Settings
+</button>
 
 </aside>
 
+
 <main class="main">
 
+
 <div class="page-title">
-    <h1>Products</h1>
-    <button class="add-btn" onclick="scrollToProduct()">+ Add Product</button>
+
+<h1>
+Products
+</h1>
+
+<button
+class="add-btn"
+onclick="scrollToProduct()">
+
++ Add Product
+
+</button>
+
 </div>
+
 
 <div class="cards">
 
 <div class="card">
-    <div class="card-title">TOTAL PRODUCTS</div>
-    <div class="card-number" id="totalProducts">0</div>
+
+<div class="card-title">
+TOTAL PRODUCTS
 </div>
 
-<div class="card">
-    <div class="card-title">NEW PRODUCTS</div>
-    <div class="card-number" id="newProducts">0</div>
+<div
+class="card-number"
+id="totalProducts">
+0
 </div>
 
+</div>
+
+
 <div class="card">
-    <div class="card-title">SALE PRODUCTS</div>
-    <div class="card-number" id="saleProducts">0</div>
+
+<div class="card-title">
+NEW PRODUCTS
+</div>
+
+<div
+class="card-number"
+id="newProducts">
+0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+SALE PRODUCTS
+</div>
+
+<div
+class="card-number"
+id="saleProducts">
+0
+</div>
+
 </div>
 
 </div>
@@ -397,147 +513,329 @@ header{
 
 <!-- PRODUCT FORM -->
 
-<div class="form-box" id="productForm">
+<div
+class="form-box"
+id="productForm">
 
-<h2>Add New Product</h2>
+<h2>
+Add New Product
+</h2>
+
 
 <div class="form-group">
-<label>Product Name</label>
-<input type="text" id="productName" placeholder="Example: Silk Midi Dress">
+
+<label>
+Product Name
+</label>
+
+<input
+type="text"
+id="productName"
+placeholder="Example: Silk Midi Dress">
+
 </div>
+
 
 <div class="row">
 
 <div class="form-group">
-<label>Price (€)</label>
-<input type="number" id="price" placeholder="79.00">
+
+<label>
+Price (€)
+</label>
+
+<input
+type="number"
+id="price"
+placeholder="79.00">
+
 </div>
+
 
 <div class="form-group">
-<label>Old Price (€)</label>
-<input type="number" id="oldPrice" placeholder="99.00">
+
+<label>
+Old Price (€)
+</label>
+
+<input
+type="number"
+id="oldPrice"
+placeholder="99.00">
+
 </div>
 
 </div>
+
 
 <div class="form-group">
-<label>Category</label>
+
+<label>
+Category
+</label>
 
 <select id="category">
+
 <option>Dresses</option>
 <option>Tops</option>
 <option>Bottoms</option>
 <option>Accessories</option>
+
 </select>
 
 </div>
 
-<div class="form-group">
-<label>Product Description</label>
 
-<textarea id="description"
-placeholder="Write product description..."></textarea>
+<div class="form-group">
+
+<label>
+Product Description
+</label>
+
+<textarea
+id="description"
+placeholder="Write product description...">
+</textarea>
 
 </div>
 
-<div class="form-group">
-<label>Product Images</label>
 
-<input type="text" id="image1" placeholder="Image URL 1">
+<!-- PRODUCT IMAGES -->
+
+<div class="form-group">
+
+<label>
+Product Images
+</label>
+
+
+<div class="image-upload">
+
+<strong>
+Image 1
+</strong>
 
 <br><br>
 
-<input type="text" id="image2" placeholder="Image URL 2">
+<input
+type="file"
+id="image1File"
+accept="image/*"
+onchange="previewImage(this,'image1Preview')">
+
+<img
+id="image1Preview"
+class="preview"
+alt="Image 1 preview">
 
 </div>
+
+
+<div class="image-upload">
+
+<strong>
+Image 2
+</strong>
+
+<br><br>
+
+<input
+type="file"
+id="image2File"
+accept="image/*"
+onchange="previewImage(this,'image2Preview')">
+
+<img
+id="image2Preview"
+class="preview"
+alt="Image 2 preview">
+
+</div>
+
+</div>
+
 
 <div class="row">
 
+
 <div class="form-group">
-<label>Stock</label>
-<input type="number" id="stock" placeholder="10">
+
+<label>
+Stock
+</label>
+
+<input
+type="number"
+id="stock"
+placeholder="10">
+
 </div>
 
+
 <div class="form-group">
-<label>Status</label>
+
+<label>
+Status
+</label>
 
 <select id="status">
-<option>Available</option>
-<option>Out of Stock</option>
+
+<option>
+Available
+</option>
+
+<option>
+Out of Stock
+</option>
+
 </select>
 
 </div>
 
 </div>
+
 
 <div class="checks">
 
 <label>
-<input type="checkbox" id="newProduct">
+
+<input
+type="checkbox"
+id="newProduct">
+
 NEW
+
 </label>
+
 
 <label>
-<input type="checkbox" id="sale">
+
+<input
+type="checkbox"
+id="sale">
+
 SALE
+
 </label>
 
 </div>
 
-<button class="save-btn" id="saveButton" onclick="saveProduct()">
+
+<button
+class="save-btn"
+id="saveButton"
+onclick="saveProduct()">
+
 Save Product
+
 </button>
 
-<div class="message" id="message"></div>
+
+<div
+class="message"
+id="message">
+</div>
 
 </div>
+
 
 
 <!-- COLLECTION FORM -->
 
-<div class="form-box" id="collectionForm">
+<div
+class="form-box"
+id="collectionForm">
 
-<h2>✨ Create Collection</h2>
+<h2>
+✨ Create Collection
+</h2>
+
 
 <div class="form-group">
-<label>Collection Name</label>
+
+<label>
+Collection Name
+</label>
 
 <input
 type="text"
 id="collectionName"
 placeholder="Example: Autumn 2026">
+
 </div>
 
+
 <div class="form-group">
-<label>Short Description</label>
+
+<label>
+Short Description
+</label>
 
 <textarea
 id="collectionDescription"
-placeholder="Example: Elegant pieces for the new season..."></textarea>
+placeholder="Example: Elegant pieces for the new season...">
+</textarea>
 
 </div>
 
+
+<!-- COLLECTION IMAGE 1 -->
+
 <div class="form-group">
-<label>Collection Image 1</label>
+
+<label>
+Collection Image 1
+</label>
+
+<div class="image-upload">
 
 <input
-type="text"
-id="collectionImage1"
-placeholder="Image URL">
+type="file"
+id="collectionImage1File"
+accept="image/*"
+onchange="previewImage(this,'collectionImage1Preview')">
+
+<img
+id="collectionImage1Preview"
+class="preview"
+alt="Collection Image 1 preview">
+
 </div>
 
+</div>
+
+
+<!-- COLLECTION IMAGE 2 -->
+
 <div class="form-group">
-<label>Collection Image 2</label>
+
+<label>
+Collection Image 2
+</label>
+
+<div class="image-upload">
 
 <input
-type="text"
-id="collectionImage2"
-placeholder="Image URL">
+type="file"
+id="collectionImage2File"
+accept="image/*"
+onchange="previewImage(this,'collectionImage2Preview')">
+
+<img
+id="collectionImage2Preview"
+class="preview"
+alt="Collection Image 2 preview">
+
 </div>
+
+</div>
+
 
 <div class="form-group">
 
-<label>Select Products for this Collection</label>
+<label>
+Select Products for this Collection
+</label>
 
 <div
 class="collection-products"
@@ -551,6 +849,7 @@ Loading products...
 
 </div>
 
+
 <button
 class="save-btn"
 id="saveCollectionButton"
@@ -560,16 +859,23 @@ Save Collection
 
 </button>
 
-<div class="message" id="collectionMessage"></div>
+
+<div
+class="message"
+id="collectionMessage">
+</div>
 
 </div>
+
 
 
 <!-- EXISTING COLLECTIONS -->
 
 <div class="form-box">
 
-<h2>Collections</h2>
+<h2>
+Collections
+</h2>
 
 <div
 class="collection-list"
@@ -583,6 +889,7 @@ Loading collections...
 
 </div>
 
+
 </main>
 
 </div>
@@ -590,77 +897,325 @@ Loading collections...
 
 <script>
 
+
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbzAYBy46FwQm_znbR7wzPb9rtzj6phhQXDJPTNX3dCDDc0kysevoo9ksiQEgjBqpi2Qjw/exec";
 
 
 let products = [];
+
 let collections = [];
 
 
-/* ---------------- PRODUCT JSONP ---------------- */
+/* =========================
+   IMAGE READER
+========================= */
+
+function readFileAsDataURL(file){
+
+    return new Promise((resolve,reject)=>{
+
+        if(!file){
+            resolve("");
+            return;
+        }
+
+        const reader =
+            new FileReader();
+
+        reader.onload =
+            () => resolve(reader.result);
+
+        reader.onerror =
+            () => reject(
+                new Error(
+                    "Could not read image"
+                )
+            );
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+
+/* =========================
+   IMAGE COMPRESSION
+========================= */
+
+function compressImage(file){
+
+    return new Promise((resolve,reject)=>{
+
+        if(!file){
+            resolve("");
+            return;
+        }
+
+        const reader =
+            new FileReader();
+
+        reader.onload = function(e){
+
+            const img =
+                new Image();
+
+            img.onload = function(){
+
+                const maxWidth = 1400;
+                const maxHeight = 1800;
+
+                let width =
+                    img.width;
+
+                let height =
+                    img.height;
+
+
+                if(
+                    width > maxWidth ||
+                    height > maxHeight
+                ){
+
+                    const ratio =
+                        Math.min(
+                            maxWidth / width,
+                            maxHeight / height
+                        );
+
+                    width =
+                        Math.round(
+                            width * ratio
+                        );
+
+                    height =
+                        Math.round(
+                            height * ratio
+                        );
+
+                }
+
+
+                const canvas =
+                    document.createElement(
+                        "canvas"
+                    );
+
+                canvas.width =
+                    width;
+
+                canvas.height =
+                    height;
+
+
+                const ctx =
+                    canvas.getContext(
+                        "2d"
+                    );
+
+                ctx.drawImage(
+                    img,
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+
+                resolve(
+                    canvas.toDataURL(
+                        "image/jpeg",
+                        0.82
+                    )
+                );
+
+            };
+
+
+            img.onerror =
+                () => reject(
+                    new Error(
+                        "Invalid image"
+                    )
+                );
+
+
+            img.src =
+                e.target.result;
+
+        };
+
+
+        reader.onerror =
+            () => reject(
+                new Error(
+                    "Could not read image"
+                )
+            );
+
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+function previewImage(input, previewId){
+
+    const file =
+        input.files[0];
+
+    const preview =
+        document.getElementById(
+            previewId
+        );
+
+    if(!file){
+
+        preview.style.display =
+            "none";
+
+        preview.src = "";
+
+        return;
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e){
+
+            preview.src =
+                e.target.result;
+
+            preview.style.display =
+                "block";
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =========================
+   PRODUCT JSONP
+========================= */
 
 function loadProducts(){
 
     const callbackName =
-        "productsCallback_" + Date.now();
+        "productsCallback_" +
+        Date.now();
 
-    window[callbackName] = function(data){
 
-        products = Array.isArray(data) ? data : [];
+    window[callbackName] =
+        function(data){
 
-        updateProductStats();
-        renderProductSelection();
+            products =
+                Array.isArray(data)
+                    ? data
+                    : [];
 
-        delete window[callbackName];
 
-        script.remove();
-    };
+            updateProductStats();
+
+            renderProductSelection();
+
+
+            delete window[callbackName];
+
+            script.remove();
+
+        };
+
 
     const script =
-        document.createElement("script");
+        document.createElement(
+            "script"
+        );
+
 
     script.src =
         SCRIPT_URL +
         "?callback=" +
-        callbackName;
+        callbackName +
+        "&t=" +
+        Date.now();
 
-    document.body.appendChild(script);
+
+    document.body.appendChild(
+        script
+    );
+
 }
 
 
-/* ---------------- COLLECTION JSONP ---------------- */
+/* =========================
+   COLLECTION JSONP
+========================= */
 
 function loadCollections(){
 
     const callbackName =
-        "collectionsCallback_" + Date.now();
+        "collectionsCallback_" +
+        Date.now();
 
-    window[callbackName] = function(data){
 
-        collections =
-            Array.isArray(data) ? data : [];
+    window[callbackName] =
+        function(data){
 
-        renderCollections();
+            collections =
+                Array.isArray(data)
+                    ? data
+                    : [];
 
-        delete window[callbackName];
 
-        script.remove();
-    };
+            renderCollections();
+
+
+            delete window[callbackName];
+
+            script.remove();
+
+        };
+
 
     const script =
-        document.createElement("script");
+        document.createElement(
+            "script"
+        );
+
 
     script.src =
         SCRIPT_URL +
-        "?type=collections&callback=" +
-        callbackName;
+        "?type=collections" +
+        "&callback=" +
+        callbackName +
+        "&t=" +
+        Date.now();
 
-    document.body.appendChild(script);
+
+    document.body.appendChild(
+        script
+    );
+
 }
 
 
-/* ---------------- STATS ---------------- */
+/* =========================
+   STATS
+========================= */
 
 function isTrue(value){
 
@@ -669,34 +1224,55 @@ function isTrue(value){
            value === "TRUE" ||
            value === 1 ||
            value === "1";
+
 }
 
 
 function updateProductStats(){
 
-    document.getElementById("totalProducts")
-        .textContent = products.length;
+    document.getElementById(
+        "totalProducts"
+    ).textContent =
+        products.length;
 
-    document.getElementById("newProducts")
-        .textContent =
-        products.filter(p =>
-            isTrue(p["New"] || p.newProduct)
+
+    document.getElementById(
+        "newProducts"
+    ).textContent =
+        products.filter(
+            p =>
+                isTrue(
+                    p["New"] ||
+                    p.newProduct
+                )
         ).length;
 
-    document.getElementById("saleProducts")
-        .textContent =
-        products.filter(p =>
-            isTrue(p["Sale"] || p.sale)
+
+    document.getElementById(
+        "saleProducts"
+    ).textContent =
+        products.filter(
+            p =>
+                isTrue(
+                    p["Sale"] ||
+                    p.sale
+                )
         ).length;
+
 }
 
 
-/* ---------------- PRODUCT SELECTION ---------------- */
+/* =========================
+   PRODUCT SELECTION
+========================= */
 
 function renderProductSelection(){
 
     const box =
-        document.getElementById("productSelection");
+        document.getElementById(
+            "productSelection"
+        );
+
 
     if(!products.length){
 
@@ -704,9 +1280,12 @@ function renderProductSelection(){
             '<div class="empty-products">No products found.</div>';
 
         return;
+
     }
 
+
     box.innerHTML = "";
+
 
     products.forEach(product => {
 
@@ -715,32 +1294,41 @@ function renderProductSelection(){
             product.id ||
             "";
 
+
         const name =
             product["Product Name"] ||
             product.name ||
             "Product";
+
 
         const price =
             product["Price"] ||
             product.price ||
             "";
 
+
         const image =
             product["Image 1"] ||
             product.image1 ||
             "";
 
-        const item =
-            document.createElement("label");
 
-        item.className = "product-option";
+        const item =
+            document.createElement(
+                "label"
+            );
+
+
+        item.className =
+            "product-option";
+
 
         item.innerHTML = `
 
             <input
                 type="checkbox"
                 class="collection-product"
-                value="${id}">
+                value="${escapeHTML(String(id))}">
 
             ${
                 image
@@ -761,94 +1349,174 @@ function renderProductSelection(){
             </div>
         `;
 
+
         box.appendChild(item);
 
     });
+
 }
 
 
-/* ---------------- SAVE PRODUCT ---------------- */
+/* =========================
+   SAVE PRODUCT
+========================= */
 
 async function saveProduct(){
 
     const button =
-        document.getElementById("saveButton");
+        document.getElementById(
+            "saveButton"
+        );
+
 
     const message =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
+
 
     const name =
-        document.getElementById("productName")
-        .value.trim();
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
 
     const price =
-        document.getElementById("price").value;
+        document.getElementById(
+            "price"
+        ).value;
+
 
     const stock =
-        document.getElementById("stock").value;
+        document.getElementById(
+            "stock"
+        ).value;
 
-    if(!name || !price || !stock){
+
+    if(
+        !name ||
+        !price ||
+        !stock
+    ){
 
         message.textContent =
             "Please fill in Product Name, Price and Stock.";
 
         return;
+
     }
 
-    const product = {
 
-        id: Date.now(),
+    const file1 =
+        document.getElementById(
+            "image1File"
+        ).files[0];
 
-        name:name,
 
-        price:price,
+    const file2 =
+        document.getElementById(
+            "image2File"
+        ).files[0];
 
-        oldPrice:
-            document.getElementById("oldPrice").value,
-
-        category:
-            document.getElementById("category").value,
-
-        description:
-            document.getElementById("description").value,
-
-        image1:
-            document.getElementById("image1").value,
-
-        image2:
-            document.getElementById("image2").value,
-
-        stock:stock,
-
-        status:
-            document.getElementById("status").value,
-
-        newProduct:
-            document.getElementById("newProduct").checked,
-
-        sale:
-            document.getElementById("sale").checked
-    };
 
     button.disabled = true;
-    button.textContent = "Saving...";
-    message.textContent = "";
+
+    button.textContent =
+        "Uploading...";
+
+    message.textContent =
+        "";
+
 
     try{
 
+        const image1 =
+            await compressImage(
+                file1
+            );
+
+
+        const image2 =
+            await compressImage(
+                file2
+            );
+
+
+        const product = {
+
+            id:Date.now(),
+
+            name:name,
+
+            price:price,
+
+            oldPrice:
+                document.getElementById(
+                    "oldPrice"
+                ).value,
+
+            category:
+                document.getElementById(
+                    "category"
+                ).value,
+
+            description:
+                document.getElementById(
+                    "description"
+                ).value,
+
+            image1:image1,
+
+            image2:image2,
+
+            stock:stock,
+
+            status:
+                document.getElementById(
+                    "status"
+                ).value,
+
+            newProduct:
+                document.getElementById(
+                    "newProduct"
+                ).checked,
+
+            sale:
+                document.getElementById(
+                    "sale"
+                ).checked
+
+        };
+
+
+        button.textContent =
+            "Saving...";
+
+
         const response =
-            await fetch(SCRIPT_URL,{
-                method:"POST",
-                body:JSON.stringify(product)
-            });
+            await fetch(
+                SCRIPT_URL,
+                {
+                    method:"POST",
+                    body:JSON.stringify(
+                        product
+                    )
+                }
+            );
+
 
         const result =
             await response.text();
 
-        if(result.trim() === "SUCCESS"){
+
+        if(
+            result.trim() ===
+            "SUCCESS"
+        ){
 
             message.textContent =
                 "Product saved successfully!";
+
 
             clearProductForm();
 
@@ -857,34 +1525,52 @@ async function saveProduct(){
         }else{
 
             message.textContent =
-                result || "An unknown error occurred.";
+                result ||
+                "An unknown error occurred.";
+
         }
+
 
     }catch(error){
 
         message.textContent =
-            "Connection error: " + error.message;
+            "Error: " +
+            error.message;
 
     }
 
+
     button.disabled = false;
-    button.textContent = "Save Product";
+
+    button.textContent =
+        "Save Product";
+
 }
 
 
-/* ---------------- SAVE COLLECTION ---------------- */
+/* =========================
+   SAVE COLLECTION
+========================= */
 
 async function saveCollection(){
 
     const button =
-        document.getElementById("saveCollectionButton");
+        document.getElementById(
+            "saveCollectionButton"
+        );
+
 
     const message =
-        document.getElementById("collectionMessage");
+        document.getElementById(
+            "collectionMessage"
+        );
+
 
     const name =
-        document.getElementById("collectionName")
-        .value.trim();
+        document.getElementById(
+            "collectionName"
+        ).value.trim();
+
 
     if(!name){
 
@@ -892,6 +1578,7 @@ async function saveCollection(){
             "Please enter a collection name.";
 
         return;
+
     }
 
 
@@ -900,58 +1587,97 @@ async function saveCollection(){
             document.querySelectorAll(
                 ".collection-product:checked"
             )
-        ).map(input => input.value);
+        ).map(
+            input => input.value
+        );
 
 
-    const collection = {
+    const file1 =
+        document.getElementById(
+            "collectionImage1File"
+        ).files[0];
 
-        type:"collection",
 
-        id:Date.now(),
-
-        name:name,
-
-        description:
-            document.getElementById(
-                "collectionDescription"
-            ).value,
-
-        image1:
-            document.getElementById(
-                "collectionImage1"
-            ).value,
-
-        image2:
-            document.getElementById(
-                "collectionImage2"
-            ).value,
-
-        productIds:
-            selectedProducts.join(",")
-    };
+    const file2 =
+        document.getElementById(
+            "collectionImage2File"
+        ).files[0];
 
 
     button.disabled = true;
-    button.textContent = "Saving...";
-    message.textContent = "";
+
+    button.textContent =
+        "Uploading...";
+
+    message.textContent =
+        "";
 
 
     try{
 
+        const image1 =
+            await compressImage(
+                file1
+            );
+
+
+        const image2 =
+            await compressImage(
+                file2
+            );
+
+
+        const collection = {
+
+            type:"collection",
+
+            id:Date.now(),
+
+            name:name,
+
+            description:
+                document.getElementById(
+                    "collectionDescription"
+                ).value,
+
+            image1:image1,
+
+            image2:image2,
+
+            productIds:
+                selectedProducts.join(",")
+
+        };
+
+
+        button.textContent =
+            "Saving...";
+
+
         const response =
-            await fetch(SCRIPT_URL,{
-                method:"POST",
-                body:JSON.stringify(collection)
-            });
+            await fetch(
+                SCRIPT_URL,
+                {
+                    method:"POST",
+                    body:JSON.stringify(
+                        collection
+                    )
+                }
+            );
+
 
         const result =
             await response.text();
 
 
-        if(result.trim() === "SUCCESS"){
+        if(
+            result.trim() ===
+            "SUCCESS"
+        ){
 
             message.textContent =
                 "Collection saved successfully!";
+
 
             clearCollectionForm();
 
@@ -960,28 +1686,40 @@ async function saveCollection(){
         }else{
 
             message.textContent =
-                result || "An unknown error occurred.";
+                result ||
+                "An unknown error occurred.";
+
         }
 
 
     }catch(error){
 
         message.textContent =
-            "Connection error: " + error.message;
+            "Error: " +
+            error.message;
+
     }
 
 
     button.disabled = false;
-    button.textContent = "Save Collection";
+
+    button.textContent =
+        "Save Collection";
+
 }
 
 
-/* ---------------- COLLECTION DISPLAY ---------------- */
+/* =========================
+   COLLECTION DISPLAY
+========================= */
 
 function renderCollections(){
 
     const box =
-        document.getElementById("collectionList");
+        document.getElementById(
+            "collectionList"
+        );
+
 
     if(!collections.length){
 
@@ -989,90 +1727,190 @@ function renderCollections(){
             '<div class="empty-products">No collections yet.</div>';
 
         return;
+
     }
+
 
     box.innerHTML = "";
 
-    collections.forEach(collection => {
 
-        const name =
-            collection["Collection Name"] ||
-            collection.name ||
-            "Collection";
+    collections.forEach(
+        collection => {
 
-        const description =
-            collection["Description"] ||
-            collection.description ||
-            "";
+            const name =
+                collection[
+                    "Collection Name"
+                ] ||
+                collection.name ||
+                "Collection";
 
-        const image =
-            collection["Image 1"] ||
-            collection.image1 ||
-            "";
 
-        const card =
-            document.createElement("div");
+            const description =
+                collection[
+                    "Description"
+                ] ||
+                collection.description ||
+                "";
 
-        card.className = "collection-card";
 
-        card.innerHTML = `
+            const image =
+                collection[
+                    "Image 1"
+                ] ||
+                collection.image1 ||
+                "";
 
-            ${
-                image
-                ? `<img src="${image}" alt="">`
-                : ""
-            }
 
-            <h3>
-                ${escapeHTML(name)}
-            </h3>
+            const card =
+                document.createElement(
+                    "div"
+                );
 
-            <p>
-                ${escapeHTML(description)}
-            </p>
-        `;
 
-        box.appendChild(card);
+            card.className =
+                "collection-card";
 
-    });
+
+            card.innerHTML = `
+
+                ${
+                    image
+                    ? `<img src="${image}" alt="">`
+                    : ""
+                }
+
+                <h3>
+                    ${escapeHTML(name)}
+                </h3>
+
+                <p>
+                    ${escapeHTML(description)}
+                </p>
+
+            `;
+
+
+            box.appendChild(card);
+
+        }
+    );
+
 }
 
 
-/* ---------------- CLEAR FORMS ---------------- */
+/* =========================
+   CLEAR PRODUCT FORM
+========================= */
 
 function clearProductForm(){
 
-    document.getElementById("productName").value="";
-    document.getElementById("price").value="";
-    document.getElementById("oldPrice").value="";
-    document.getElementById("description").value="";
-    document.getElementById("image1").value="";
-    document.getElementById("image2").value="";
-    document.getElementById("stock").value="";
+    document.getElementById(
+        "productName"
+    ).value = "";
 
-    document.getElementById("newProduct").checked=false;
-    document.getElementById("sale").checked=false;
+
+    document.getElementById(
+        "price"
+    ).value = "";
+
+
+    document.getElementById(
+        "oldPrice"
+    ).value = "";
+
+
+    document.getElementById(
+        "description"
+    ).value = "";
+
+
+    document.getElementById(
+        "stock"
+    ).value = "";
+
+
+    document.getElementById(
+        "image1File"
+    ).value = "";
+
+
+    document.getElementById(
+        "image2File"
+    ).value = "";
+
+
+    document.getElementById(
+        "image1Preview"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "image2Preview"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "newProduct"
+    ).checked = false;
+
+
+    document.getElementById(
+        "sale"
+    ).checked = false;
+
 }
 
+
+/* =========================
+   CLEAR COLLECTION FORM
+========================= */
 
 function clearCollectionForm(){
 
-    document.getElementById("collectionName").value="";
-    document.getElementById("collectionDescription").value="";
-    document.getElementById("collectionImage1").value="";
-    document.getElementById("collectionImage2").value="";
+    document.getElementById(
+        "collectionName"
+    ).value = "";
+
+
+    document.getElementById(
+        "collectionDescription"
+    ).value = "";
+
+
+    document.getElementById(
+        "collectionImage1File"
+    ).value = "";
+
+
+    document.getElementById(
+        "collectionImage2File"
+    ).value = "";
+
+
+    document.getElementById(
+        "collectionImage1Preview"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "collectionImage2Preview"
+    ).style.display = "none";
+
 
     document.querySelectorAll(
         ".collection-product"
-    ).forEach(input => {
+    ).forEach(
+        input => {
+            input.checked = false;
+        }
+    );
 
-        input.checked = false;
-
-    });
 }
 
 
-/* ---------------- NAVIGATION ---------------- */
+/* =========================
+   NAVIGATION
+========================= */
 
 function scrollToProduct(){
 
@@ -1081,6 +1919,7 @@ function scrollToProduct(){
     ).scrollIntoView({
         behavior:"smooth"
     });
+
 }
 
 
@@ -1091,6 +1930,7 @@ function scrollToCollection(){
     ).scrollIntoView({
         behavior:"smooth"
     });
+
 }
 
 
@@ -1100,28 +1940,55 @@ function showProducts(){
         top:0,
         behavior:"smooth"
     });
+
 }
 
 
-/* ---------------- SECURITY ---------------- */
+/* =========================
+   SECURITY
+========================= */
 
 function escapeHTML(value){
 
     return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
 }
 
 
-/* ---------------- START ---------------- */
+/* =========================
+   START
+========================= */
 
 loadProducts();
+
 loadCollections();
 
 </script>
 
 </body>
-    </html>
+</html>
